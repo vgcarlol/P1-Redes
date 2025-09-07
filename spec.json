@@ -1,0 +1,32 @@
+{
+  "schema_version": "v1",
+  "name": "payments_mcp_server",
+  "description": "MCP server to manage balances and register payments using JSON-RPC.",
+  "contact_email": "val221164@uvg.edu.gt",
+  "authentication": "none",
+  "methods": [
+    {
+      "name": "get_pending_balance",
+      "description": "Returns the current pending balance of a given user.",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "name": { "type": "string", "description": "User's full name." }
+        },
+        "required": ["name"]
+      }
+    },
+    {
+      "name": "register_payment",
+      "description": "Registers a payment for a user and returns new balance.",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "name": { "type": "string", "description": "User's full name." },
+          "amount": { "type": "number", "description": "Amount to register." }
+        },
+        "required": ["name", "amount"]
+      }
+    }
+  ]
+}
