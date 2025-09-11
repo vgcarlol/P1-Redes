@@ -2,7 +2,7 @@
   "schema_version": "v1",
   "name": "payments_mcp_server",
   "description": "MCP server to manage balances and register payments using /initialize, /describe, and /run.",
-  "contact_email": "carlos.valladares@uvg.edu.gt",
+  "contact_email": "val221164@uvg.edu.gt",
   "authentication": "none",
   "tools": [
     {

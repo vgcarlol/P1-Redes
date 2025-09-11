@@ -1,0 +1,42 @@
+{
+  "tools": [
+    {
+      "type": "function",
+      "function": {
+        "name": "get_pending_balance",
+        "description": "Consulta el saldo pendiente de un usuario.",
+        "parameters": {
+          "type": "object",
+          "properties": {
+            "name": {
+              "type": "string",
+              "description": "Nombre del usuario"
+            }
+          },
+          "required": ["name"]
+        }
+      }
+    },
+    {
+      "type": "function",
+      "function": {
+        "name": "register_payment",
+        "description": "Registra un pago para un usuario.",
+        "parameters": {
+          "type": "object",
+          "properties": {
+            "name": {
+              "type": "string",
+              "description": "Nombre del usuario"
+            },
+            "amount": {
+              "type": "number",
+              "description": "Cantidad a pagar"
+            }
+          },
+          "required": ["name", "amount"]
+        }
+      }
+    }
+  ]
+}

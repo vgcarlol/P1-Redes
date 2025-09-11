@@ -1,0 +1,4 @@
+[2025-09-10T23:49:44.627588] INICIALIZACIÓN: {"status":"ready"}
+
+[2025-09-10T23:49:46.667228] DESCRIPCIÓN TOOLS: [{'description': 'Returns the current pending balance of a given user.', 'input_schema': {'properties': {'name': {'description': "User's full name.", 'type': 'string'}}, 'required': ['name'], 'type': 'object'}, 'name': 'get_pending_balance'}, {'description': 'Registers a payment for a user and returns new balance.', 'input_schema': {'properties': {'amount': {'description': 'Amount to register.', 'type': 'number'}, 'name': {'description': "User's full name.", 'type': 'string'}}, 'required': ['name', 'amount'], 'type': 'object'}, 'name': 'register_payment'}]
+[2025-09-10T23:56:37.965867] Usuario: ¿Cuánto debe Andrea?
