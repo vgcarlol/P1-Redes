@@ -1,0 +1,24 @@
+[2025-09-11 16:09:01]
+Usuario: Crea una tarea para entregar el informe mañana a las 10.
+Tool usada: local__create_task
+Parámetros: {'due': '2023-10-25 10:00', 'priority': 1, 'title': 'Entregar el informe'}
+Respuesta: Tarea #6 creada. 
+----------------------------------------
+[2025-09-11 16:09:20]
+Usuario: Registra un pago de 50 para Andrea.
+Tool usada: remoto__register_payment
+Parámetros: {'amount': 50, 'name': 'Andrea'}
+Respuesta: Pago de Q50 registrado para Andrea. Nuevo saldo: Q118.19999999999999
+----------------------------------------
+[2025-09-11 16:09:47]
+Usuario: Lee el archivo README.md dentro de workspace.
+Tool usada: fs__read_text_file
+Parámetros: {'path': 'workspace/README.md'}
+Respuesta: {'meta': None, 'content': [{'type': 'text', 'text': 'Hola Mundo', 'annotations': None, 'meta': None}], 'structuredContent': None, 'isError': False}
+----------------------------------------
+[2025-09-11 16:09:56]
+Usuario: Muestra git status en el repositorio actual.
+Tool usada: git__git_status
+Parámetros: {'repo_path': '.'}
+Respuesta: {'meta': None, 'content': [{'type': 'text', 'text': 'Repository status:\nOn branch main\nYour branch is up to date with \'origin/main\'.\n\nChanges not staged for commit:\n  (use "git add <file>..." to update what will be committed)\n  (use "git restore <file>..." to discard changes in working directory)\n\tmodified:   MCP_Local/tasks.csv\n\tmodified:   chatbot/chatbot_mcp.py\n\nUntracked files:\n  (use "git add <file>..." to include in what will be committed)\n\tMCP_Oficiales/Filesystem/\n\tMCP_Oficiales/git-mcp-server/\n\tinteractions.log\n\trepo_git/\n\ttest_local_mcp.py\n\tworkspace/\n\nno changes added to commit (use "git add" and/or "git commit -a")', 'annotations': None, 'meta': None}], 'structuredContent': None, 'isError': False}
+----------------------------------------
