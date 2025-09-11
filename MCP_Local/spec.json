@@ -1,31 +1,54 @@
 {
   "schema_version": "v1",
-  "name": "payments_mcp_server",
-  "description": "MCP server to manage balances and register payments using /initialize, /describe, and /run.",
+  "name": "tasks_mcp_server",
+  "description": "Task manager with priorities and due dates. Detects time conflicts and supports snooze.",
   "contact_email": "val221164@uvg.edu.gt",
   "authentication": "none",
   "tools": [
     {
-      "name": "get_pending_balance",
-      "description": "Returns the current pending balance of a given user.",
+      "name": "create_task",
+      "description": "Create a new task with title, due date (YYYY-MM-DD HH:MM), and priority (1=High,2=Med,3=Low).",
       "input_schema": {
         "type": "object",
         "properties": {
-          "name": { "type": "string", "description": "User's full name." }
+          "title": {"type": "string"},
+          "due": {"type": "string", "description": "YYYY-MM-DD HH:MM"},
+          "priority": {"type": "integer", "enum": [1,2,3]}
         },
-        "required": ["name"]
+        "required": ["title","due","priority"]
       }
     },
     {
-      "name": "register_payment",
-      "description": "Registers a payment for a user and returns new balance.",
+      "name": "list_tasks",
+      "description": "List tasks filtered by optional status (pending|done) and/or by date range.",
       "input_schema": {
         "type": "object",
         "properties": {
-          "name": { "type": "string", "description": "User's full name." },
-          "amount": { "type": "number", "description": "Amount to register." }
+          "status": {"type":"string","enum":["pending","done"]},
+          "from": {"type":"string","description":"YYYY-MM-DD"},
+          "to": {"type":"string","description":"YYYY-MM-DD"}
+        }
+      }
+    },
+    {
+      "name": "complete_task",
+      "description": "Mark a task as done by id.",
+      "input_schema": {
+        "type": "object",
+        "properties": { "id": {"type":"integer"} },
+        "required": ["id"]
+      }
+    },
+    {
+      "name": "snooze_task",
+      "description": "Snooze a task by minutes.",
+      "input_schema": {
+        "type": "object",
+        "properties": {
+          "id": {"type":"integer"},
+          "minutes": {"type":"integer","minimum":1}
         },
-        "required": ["name", "amount"]
+        "required": ["id","minutes"]
       }
     }
   ]

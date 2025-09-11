@@ -1,36 +1,78 @@
-[2025-09-11 00:06:52]
-Usuario: Registrar un pago de 50 a Andrea
-Tool usada: register_payment
-Parámetros: {'name': 'Andrea', 'amount': 50.0}
-Respuesta: Pago de Q50.0 registrado exitosamente. Nuevo saldo: Q100.0
-----------------------------------------
-[2025-09-11 00:16:29]
-Usuario: Registra un pago de 50 para Andrea
-Tool usada: register_payment
-Parámetros: {'name': 'Andrea', 'amount': 50.0}
-Respuesta: Pago de Q50.0 registrado exitosamente. Nuevo saldo: Q50.0
-----------------------------------------
-[2025-09-11 00:18:54]
-Usuario: ¿Cuánto debe Andrea?
-Tool usada: get_pending_balance
-Parámetros: {'name': 'Andrea'}
-Respuesta: 50.0
-----------------------------------------
-[2025-09-11 00:20:35]
-Usuario: ¿Cuánto debe Andrea?
-Tool usada: get_pending_balance
-Parámetros: {'name': 'Andrea'}
-Respuesta: 50.0
-----------------------------------------
-[2025-09-11 00:22:59]
-Usuario: Cuánto debe Carlos
+[2025-09-11 10:21:04]
+Usuario: ¿Cuánto debe Carlos?
 Tool usada: get_pending_balance
 Parámetros: {'name': 'Carlos'}
-Respuesta: 250.0
+Respuesta: (sqlite3.OperationalError) no such table: usuarios
+[SQL: SELECT usuarios.id AS usuarios_id, usuarios.nombre AS usuarios_nombre, usuarios.saldo_pendiente AS usuarios_saldo_pendiente 
+FROM usuarios 
+WHERE usuarios.nombre = ?
+ LIMIT ? OFFSET ?]
+[parameters: ('Carlos', 1, 0)]
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
 ----------------------------------------
-[2025-09-11 00:24:50]
-Usuario: Dale 25 a Luis
+[2025-09-11 10:29:01]
+Usuario: ¿Cuánto debe Carlos?
+Tool usada: get_pending_balance
+Parámetros: {'name': 'Carlos'}
+Respuesta: Saldo pendiente de Carlos: Q217.35
+----------------------------------------
+[2025-09-11 10:29:20]
+Usuario: Registra un pago de 150 para Carlos
 Tool usada: register_payment
-Parámetros: {'name': 'Luis', 'amount': 25.0}
-Respuesta: Pago de Q25.0 registrado exitosamente. Nuevo saldo: Q0.0
+Parámetros: {'amount': 150, 'name': 'Carlos'}
+Respuesta: Pago de Q150 registrado para Carlos. Nuevo saldo: Q67.35
+----------------------------------------
+[2025-09-11 10:29:29]
+Usuario: ¿Cuánto debe Carlos?
+Tool usada: get_pending_balance
+Parámetros: {'name': 'Carlos'}
+Respuesta: Saldo pendiente de Carlos: Q67.35
+----------------------------------------
+[2025-09-11 12:30:32]
+Usuario: Crea una tarea llamada "Entregar informe" para el 2025-09-12 10:00 con prioridad alta
+Tool usada: local__create_task
+Parámetros: {'due': '2025-09-12 10:00', 'priority': 1, 'title': 'Entregar informe'}
+Respuesta: Tarea #1 creada. 
+----------------------------------------
+[2025-09-11 12:30:49]
+Usuario: Muéstrame las tareas pendientes
+Tool usada: local__list_tasks
+Parámetros: {'status': 'pending'}
+Respuesta: [{'due': '2025-09-12 10:00', 'id': '1', 'priority': '1', 'status': 'pending', 'title': 'Entregar informe'}]
+----------------------------------------
+[2025-09-11 12:33:05]
+Usuario: Crea una tarea llamada "Entregar informe" para el 2025-09-12 10:00 con prioridad alta
+Tool usada: local__create_task
+Parámetros: {'due': '2025-09-12 10:00', 'priority': 1, 'title': 'Entregar informe'}
+Respuesta: Tarea #2 creada. ⚠️ 1 conflicto(s) de horario detectado(s).
+----------------------------------------
+[2025-09-11 12:33:18]
+Usuario: Muéstrame las tareas pendientes
+Tool usada: local__list_tasks
+Parámetros: {'status': 'pending'}
+Respuesta: [{'due': '2025-09-12 10:00', 'id': '1', 'priority': '1', 'status': 'pending', 'title': 'Entregar informe'}, {'due': '2025-09-12 10:00', 'id': '2', 'priority': '1', 'status': 'pending', 'title': 'Entregar informe'}]
+----------------------------------------
+[2025-09-11 12:33:29]
+Usuario: Marca la tarea 1 como completada
+Tool usada: local__complete_task
+Parámetros: {'id': 1}
+Respuesta: Tarea #1 completada.
+----------------------------------------
+[2025-09-11 12:33:38]
+Usuario: Muéstrame las tareas pendientes
+Tool usada: local__list_tasks
+Parámetros: {'status': 'pending'}
+Respuesta: [{'due': '2025-09-12 10:00', 'id': '2', 'priority': '1', 'status': 'pending', 'title': 'Entregar informe'}]
+----------------------------------------
+[2025-09-11 12:33:44]
+Usuario: ¿Cuánto debe Andrea en el remoto?
+Tool usada: remoto__get_pending_balance
+Parámetros: {'name': 'Andrea'}
+Respuesta: Saldo pendiente de Andrea: Q168.2
+----------------------------------------
+[2025-09-11 12:33:50]
+Usuario: Registra un pago de Q50 para Carlos en el remoto
+Tool usada: remoto__register_payment
+Parámetros: {'amount': 50, 'name': 'Carlos'}
+Respuesta: Pago de Q50 registrado para Carlos. Nuevo saldo: Q17.349999999999994
 ----------------------------------------
