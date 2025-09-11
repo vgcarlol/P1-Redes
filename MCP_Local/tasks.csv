@@ -1,3 +1,6 @@
 id,title,due,priority,status
 1,Entregar informe,2025-09-12 10:00,1,done
 2,Entregar informe,2025-09-12 10:00,1,pending
+3,Inicializar repositorio git en el directorio actual,2022-12-31 23:59,3,pending
+4,Inicializar repositorio Git en el directorio actual,2023-09-30 12:00,1,pending
+5,Inicializar repositorio Git en directorio actual,2023-09-25 14:30,2,pending

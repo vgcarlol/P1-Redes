@@ -76,3 +76,75 @@ Tool usada: remoto__register_payment
 Parámetros: {'amount': 50, 'name': 'Carlos'}
 Respuesta: Pago de Q50 registrado para Carlos. Nuevo saldo: Q17.349999999999994
 ----------------------------------------
+[2025-09-11 12:53:11]
+Usuario: Usa el servidor remoto para convertir a mayúsculas "Go Thunder"
+Tool usada: compa__.transform_text
+Parámetros: {'text': 'Go Thunder'}
+Respuesta: Error desconocido
+----------------------------------------
+[2025-09-11 12:53:12]
+Usuario: Usa el servidor remoto para convertir a mayúsculas "Go Thunder"
+Tool usada: remoto__.get_pending_balance
+Parámetros: {'name': 'dummy'}
+Respuesta: Tool not found
+----------------------------------------
+[2025-09-11 12:55:13]
+Usuario: ¿Cuánto debe Carlos ahora?
+Tool usada: remoto__get_pending_balance
+Parámetros: {'name': 'Carlos'}
+Respuesta: Saldo pendiente de Carlos: Q67.35
+----------------------------------------
+[2025-09-11 15:02:00]
+Usuario: Inicializa un repositorio git en el directorio actual.
+Tool usada: local__create_task
+Parámetros: {'due': '2022-12-31 23:59', 'priority': 3, 'title': 'Inicializar repositorio git en el directorio actual'}
+Respuesta: Tarea #3 creada. 
+----------------------------------------
+[2025-09-11 15:07:22]
+Usuario: Inicializa un repositorio git en el directorio actual.
+Tool usada: git__.init
+Parámetros: {}
+Respuesta: Method not found
+----------------------------------------
+[2025-09-11 15:07:24]
+Usuario: Inicializa un repositorio git en el directorio actual.
+Tool usada: local__create_task
+Parámetros: {'due': '2023-09-30 12:00', 'priority': 1, 'title': 'Inicializar repositorio Git en el directorio actual'}
+Respuesta: Tarea #4 creada. 
+----------------------------------------
+[2025-09-11 15:11:11]
+Usuario: Inicializa un repositorio git en el directorio actual.
+Tool usada: local__create_task
+Parámetros: {'due': '2023-09-25 14:30', 'priority': 2, 'title': 'Inicializar repositorio Git en directorio actual'}
+Respuesta: Tarea #5 creada. 
+----------------------------------------
+[2025-09-11 15:11:33]
+Usuario: Añade README.md y haz commit con el mensaje ‘primer commit’.
+Tool usada: git__add
+Parámetros: {'file': 'README.md'}
+Respuesta: Method not found
+----------------------------------------
+[2025-09-11 15:11:33]
+Usuario: Añade README.md y haz commit con el mensaje ‘primer commit’.
+Tool usada: git__commit
+Parámetros: {'message': 'primer commit'}
+Respuesta: Method not found
+----------------------------------------
+[2025-09-11 15:11:46]
+Usuario: Registra un pago de 50 para Andrea
+Tool usada: remoto__register_payment
+Parámetros: {'amount': 50, 'name': 'Andrea'}
+Respuesta: Pago de Q50 registrado para Andrea. Nuevo saldo: Q118.19999999999999
+----------------------------------------
+[2025-09-11 15:11:56]
+Usuario: ¿Cuánto debe Carlos Ahora?
+Tool usada: remoto__get_pending_balance
+Parámetros: {'name': 'Carlos'}
+Respuesta: Saldo pendiente de Carlos: Q67.35
+----------------------------------------
+[2025-09-11 15:12:05]
+Usuario: ¿Tareas pendientes?
+Tool usada: local__list_tasks
+Parámetros: {'status': 'pending'}
+Respuesta: [{'due': '2025-09-12 10:00', 'id': '2', 'priority': '1', 'status': 'pending', 'title': 'Entregar informe'}, {'due': '2022-12-31 23:59', 'id': '3', 'priority': '3', 'status': 'pending', 'title': 'Inicializar repositorio git en el directorio actual'}, {'due': '2023-09-30 12:00', 'id': '4', 'priority': '1', 'status': 'pending', 'title': 'Inicializar repositorio Git en el directorio actual'}, {'due': '2023-09-25 14:30', 'id': '5', 'priority': '2', 'status': 'pending', 'title': 'Inicializar repositorio Git en directorio actual'}]
+----------------------------------------

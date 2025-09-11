@@ -30,7 +30,7 @@ cd P1-Redes/chatbot
 
 ```bash
 python -m venv env
-.\env\Scripts\ctivate
+.\env\Scripts\activate
 ```
 
 *(En Linux/Mac sería `source env/bin/activate`)*
