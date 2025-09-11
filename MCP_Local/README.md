@@ -1,16 +1,17 @@
-# Servidor MCP Local – Pagos
+# Servidor MCP Local – Gestión de Tareas
 
-Este es un servidor local basado en el protocolo Model Context Protocol (MCP), que permite a agentes (por ejemplo, LLMs) consultar saldos pendientes y registrar pagos utilizando JSON-RPC.  
-El servidor está desarrollado con Python, Flask, SQLAlchemy y utiliza una base de datos local SQLite.
+Este es un servidor **local** basado en el protocolo Model Context Protocol (MCP), que permite a agentes (por ejemplo, LLMs) **gestionar tareas** utilizando JSON-RPC.  
+El servidor está desarrollado con **Python y Flask**, y utiliza un archivo **CSV (`tasks.csv`)** como almacenamiento ligero.
 
 ---
 
 ## 📦 Funcionalidades
 
-- ✅ Consultar el saldo pendiente de un usuario
-- ✅ Registrar un pago para un usuario y actualizar su saldo
-- ✅ Implementación del protocolo JSON-RPC compatible con MCP
-- ✅ Base de datos SQLite precargada con usuarios de prueba
+- ✅ Crear nuevas tareas con título, fecha límite y prioridad  
+- ✅ Listar tareas filtradas por estado (pendientes o completadas) o rango de fechas  
+- ✅ Marcar tareas como completadas  
+- ✅ Posponer tareas (“snooze”) en minutos  
+- ✅ Implementación compatible con MCP (`/initialize`, `/describe`, `/run`)  
 
 ---
 
@@ -18,9 +19,9 @@ El servidor está desarrollado con Python, Flask, SQLAlchemy y utiliza una base 
 
 Asegúrate de tener instalado lo siguiente:
 
-- Python 3.8 o superior
-- `pip` (administrador de paquetes de Python)
-- (Opcional pero recomendado) Uso de entorno virtual (`venv`)
+- Python 3.8 o superior  
+- `pip` (administrador de paquetes de Python)  
+- (Opcional) Uso de entorno virtual (`venv`)  
 
 ---
 
@@ -30,29 +31,16 @@ Asegúrate de tener instalado lo siguiente:
 
 ```bash
 git clone https://github.com/vgcarlol/P1-Redes.git
-cd P1-Redes
+cd P1-Redes/MCP_Local
 ```
 
 ### 2. Instala las dependencias
 
 ```bash
-pip install -r requirements.txt
+pip install flask
 ```
 
-Esto instalará:
-- `flask`
-- `flask_jsonrpc`
-- `sqlalchemy`
-
-### 3. Inicializa la base de datos
-
-Ejecuta el script para crear el archivo `database.db` y precargar usuarios de prueba:
-
-```bash
-python init_db.py
-```
-
-### 4. Inicia el servidor
+### 3. Inicia el servidor
 
 ```bash
 python app.py
@@ -61,62 +49,106 @@ python app.py
 El servidor quedará disponible en:
 
 ```
-http://localhost:5000/api
+http://localhost:6000
 ```
 
 ---
 
 ## 🔁 Métodos MCP – JSON-RPC
 
-### 1. `get_pending_balance`
+### 1. `create_task`
 
-**Descripción:** Devuelve el saldo pendiente actual de un usuario.
-
+**Descripción:** Crea una nueva tarea con título, fecha y prioridad.  
 **Parámetros:**
 ```json
 {
-  "name": "Carlos"
+  "title": "Entregar informe",
+  "due": "2025-09-12 10:00",
+  "priority": 1
 }
 ```
 
 **Respuesta:**
 ```json
-300.0
+"Tarea #1 creada. ⚠️ 1 conflicto(s) de horario detectado(s)."
 ```
 
 ---
 
-### 2. `register_payment`
+### 2. `list_tasks`
 
-**Descripción:** Registra un pago y devuelve un mensaje de confirmación.
-
+**Descripción:** Lista tareas, con opción de filtrar por estado o fechas.  
 **Parámetros:**
 ```json
 {
-  "name": "Carlos",
-  "amount": 50
+  "status": "pending"
 }
 ```
 
 **Respuesta:**
 ```json
-"Pago de Q50 registrado exitosamente. Nuevo saldo: Q250.0"
+[
+  {
+    "id": "1",
+    "title": "Entregar informe",
+    "due": "2025-09-12 10:00",
+    "priority": "1",
+    "status": "pending"
+  }
+]
 ```
 
 ---
 
-## 🧪 Usuarios precargados
+### 3. `complete_task`
 
-| Nombre  | Saldo pendiente |
-|---------|------------------|
-| Carlos  | Q300.00          |
-| Andrea  | Q150.00          |
-| Luis    | Q0.00            |
+**Descripción:** Marca una tarea como completada.  
+**Parámetros:**
+```json
+{
+  "id": 1
+}
+```
+
+**Respuesta:**
+```json
+"Tarea #1 completada."
+```
+
+---
+
+### 4. `snooze_task`
+
+**Descripción:** Pospone la fecha límite de una tarea.  
+**Parámetros:**
+```json
+{
+  "id": 1,
+  "minutes": 30
+}
+```
+
+**Respuesta:**
+```json
+"Tarea #1 pospuesta 30 min. Nuevo due: 2025-09-12 10:30."
+```
+
+---
+
+## 🧪 Ejemplo de archivo `tasks.csv`
+
+Al iniciar por primera vez, el servidor crea automáticamente el archivo `tasks.csv` con encabezados:
+
+```csv
+id,title,due,priority,status
+```
+
+Cada vez que se agrega o modifica una tarea, el archivo se actualiza.
 
 ---
 
 ## 🧑‍💻 Autor
 
-Carlos Valladares - Carnét 221164  
+Carlos Valladares - Carnet 221164  
 Universidad del Valle de Guatemala  
-Curso: CC3067 Redes – Proyecto 1
+Curso: CC3067 Redes – Proyecto 1  

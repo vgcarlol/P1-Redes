@@ -5,7 +5,7 @@ import requests
 from openai import OpenAI
 
 # ========== CONFIGURACIÓN ==========
-OPENAI_API_KEY = "X"
+OPENAI_API_KEY = ""
 OPENAI_MODEL = "gpt-3.5-turbo"
 
 MCP_ENDPOINTS = {
