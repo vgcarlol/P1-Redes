@@ -1,140 +1,159 @@
-# Chatbot MCP – Integración con Servidores Local y Remoto
+# Chatbot MCP – Integration with Local, Remote, Filesystem and Git Servers
 
-Este chatbot utiliza un modelo de lenguaje (**OpenAI GPT-3.5-turbo**) conectado a dos servidores MCP:  
-
-- **MCP Local (Gestión de Tareas)** → Crear, listar, completar y posponer tareas.  
-- **MCP Remoto (Pagos – en Google Cloud Run)** → Consultar saldos y registrar pagos de usuarios.  
-
-Permite interactuar en **lenguaje natural** y mantiene contexto de la conversación, además de registrar logs de las interacciones.
+This project implements a **chatbot** that connects an OpenAI language model (**GPT-3.5-turbo**) with multiple **MCP (Model Context Protocol) servers**.  
+It demonstrates how a conversational agent can interact with different backends in a unified way.
 
 ---
 
-## 🖥️ Requisitos
+## 🚀 Features
 
-- Python 3.8 o superior  
-- Una cuenta de OpenAI con API key válida  
-- (Opcional) `git` para clonar el repositorio  
+- **Local MCP (Task Management)** → Create, list, complete and snooze tasks (Flask + SQLAlchemy).  
+- **Remote MCP (Payments on Google Cloud Run)** → Query balances and register user payments.  
+- **Filesystem MCP (Official server)** → Read, write and list files inside the `workspace/` directory.  
+- **Git MCP (Official server)** → Perform Git operations such as `status`, `add`, `commit`, `log`.  
+
+All interactions are logged for traceability.
 
 ---
 
-## ⚙️ Instrucciones de instalación y ejecución
+## 🖥️ Requirements
 
-### 1. Clona el repositorio
+- Python 3.8+  
+- OpenAI account with a valid API key  
+- Node.js and `npx` (for Filesystem MCP server)  
+- Git installed (for Git MCP server)  
+
+---
+
+## ⚙️ Installation & Execution
+
+### 1. Clone the repository
+
+MCP_Local: https://github.com/vgcarlol/MCP_Local_Server 
 
 ```bash
 git clone https://github.com/vgcarlol/P1-Redes.git
 cd P1-Redes/chatbot
 ```
 
-### 2. Crea y activa entorno virtual
+### 2. Create and activate virtual environment
 
 ```bash
 python -m venv env
 .\env\Scripts\activate
 ```
 
-*(En Linux/Mac sería `source env/bin/activate`)*
+*(Linux/Mac: `source env/bin/activate`)*
 
-### 3. Instala dependencias
+### 3. Install dependencies
 
 ```bash
 pip install -r requirements.txt
 ```
 
-Asegúrate de incluir en `requirements.txt`:
+Sample `requirements.txt`:
+
 ```
 flask
+sqlalchemy
 pandas
 openai
 requests
+mcp
 ```
 
-### 4. Configura variables (opcional)
+### 4. Configure environment variables
 
-El API Key de OpenAI ya está en el código, pero puedes sobreescribirlo con variable de entorno:
+Set your OpenAI API key (replace `your_api_key_here`):
 
 ```bash
-setx OPENAI_API_KEY "tu_api_key_aqui"
+setx OPENAI_API_KEY "your_api_key_here"
 ```
 
-### 5. Ejecuta el chatbot
+On Linux/Mac:
+
+```bash
+export OPENAI_API_KEY="your_api_key_here"
+```
+
+### 5. Run the chatbot
 
 ```bash
 python chatbot_mcp.py
 ```
 
----
-
-## 🤖 Ejemplo de uso del chatbot
-
-Cuando se ejecute, verás:
+You will see:
 
 ```
-🤖 Chatbot MCP (OpenAI + Local + Remoto)
-Escribe 'salir' para terminar.
+🤖 Chatbot MCP (OpenAI + Local + Remote + Filesystem + Git)
+Type 'exit' to quit.
 ```
 
-Ahora puedes interactuar en **lenguaje natural**.  
+---
+
+## 🤖 Example Interactions
+
+### 🔹 Local MCP (Tasks)
+```text
+Create a task called "Submit report" for 2025-09-12 10:00 with high priority
+Show all pending tasks
+Mark task 1 as completed
+Snooze task 2 for 30 minutes
+```
+
+### 🔹 Remote MCP (Payments)
+```text
+How much does Andrea owe?
+Register a payment of 50 for Carlos
+Show pending balance of Carlos and Andrea
+```
+
+### 🔹 Filesystem MCP
+```text
+Read the file README.md inside workspace
+Write a new file workspace/note.txt with content "Hello MCP"
+```
+
+### 🔹 Git MCP
+```text
+Show git status
+Add README.md and commit with message "initial commit"
+Show git log
+```
 
 ---
 
-## 📌 Preguntas posibles
+## 📂 Interaction Logs
 
-### 🔹 Para el **MCP Local (Gestión de Tareas)**
-1. **Crear tarea**  
-   ```
-   Crea una tarea llamada "Entregar informe" para el 2025-09-12 10:00 con prioridad alta
-   ```
-
-2. **Listar tareas pendientes**  
-   ```
-   Muéstrame todas las tareas pendientes
-   ```
-
-3. **Completar una tarea**  
-   ```
-   Marca la tarea 1 como completada
-   ```
-
-4. **Posponer una tarea**  
-   ```
-   Pospón la tarea 1 por 30 minutos
-   ```
-
----
-
-### 🔹 Para el **MCP Remoto (Pagos en la nube)**  
-1. **Consultar saldo**  
-   ```
-   ¿Cuánto debe Andrea en el remoto?
-   ```
-
-2. **Registrar un pago**  
-   ```
-   Registra un pago de Q50 para Carlos en el remoto
-   ```
-
-3. **Escenario combinado**  
-   ```
-   ¿Cuánto debe Carlos en el remoto y qué tareas pendientes tiene en el local?
-   ```
-
----
-
-## 📂 Logs de interacción
-
-Todas las interacciones se guardan en el archivo:
+All user interactions are saved in:
 
 ```
 interactions.log
 ```
 
-Incluye fecha, prompt del usuario, herramienta usada y respuesta.
+Each entry includes timestamp, user prompt, tool invoked and response.
 
 ---
 
-## 🧑‍💻 Autor
+## 🗂️ Version Control
 
-Carlos Valladares – Carnet 221164  
+- The project is maintained in **Git** with incremental commits.  
+- Each commit message is descriptive (in English).  
+- A separate repository exists for the **Local MCP server** as required.  
+- Branches were used for development and testing to maintain clean history.  
+
+---
+
+## 📖 Documentation & Code Practices
+
+- All Python code is documented with clear function and class descriptions.  
+- Tools are namespaced (`local__`, `remoto__`, `fs__`, `git__`) to enforce proper routing.  
+- Error handling and logging are included.  
+
+---
+
+## 👤 Author
+
+**Carlos Valladares – ID 221164**  
 Universidad del Valle de Guatemala  
-Curso: CC3067 Redes – Proyecto 1  
+Course: CC3067 – Networks, Project 1  

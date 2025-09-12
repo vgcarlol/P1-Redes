@@ -1,52 +1,50 @@
-# Servidor MCP Local – Gestión de Tareas
+# MCP Local Server – Task Management
 
-Este es un servidor **local** basado en el protocolo Model Context Protocol (MCP), que permite a agentes (por ejemplo, LLMs) **gestionar tareas** utilizando JSON-RPC.  
-El servidor está desarrollado con **Python y Flask**, y utiliza un archivo **CSV (`tasks.csv`)** como almacenamiento ligero.
-
----
-
-## 📦 Funcionalidades
-
-- ✅ Crear nuevas tareas con título, fecha límite y prioridad  
-- ✅ Listar tareas filtradas por estado (pendientes o completadas) o rango de fechas  
-- ✅ Marcar tareas como completadas  
-- ✅ Posponer tareas (“snooze”) en minutos  
-- ✅ Implementación compatible con MCP (`/initialize`, `/describe`, `/run`)  
+This is a **local MCP server** (Model Context Protocol) that allows agents (e.g., LLMs) to **manage tasks** via JSON-RPC.  
+It is built with **Python and Flask** and uses a lightweight **CSV file (`tasks.csv`)** for storage.
 
 ---
 
-## 🖥️ Requisitos
+## 📦 Features
 
-Asegúrate de tener instalado lo siguiente:
-
-- Python 3.8 o superior  
-- `pip` (administrador de paquetes de Python)  
-- (Opcional) Uso de entorno virtual (`venv`)  
+- ✅ Create new tasks with title, due date and priority  
+- ✅ List tasks filtered by status (pending/completed) or by date range  
+- ✅ Mark tasks as completed  
+- ✅ Snooze tasks by minutes  
+- ✅ Fully MCP-compatible (`/initialize`, `/describe`, `/run`)  
 
 ---
 
-## ⚙️ Instrucciones de instalación y ejecución
+## 🖥️ Requirements
 
-### 1. Clona el repositorio
+- Python 3.8+  
+- `pip` (Python package manager)  
+- (Optional) Virtual environment (`venv`)  
+
+---
+
+## ⚙️ Installation and Execution
+
+### 1. Clone the repository
 
 ```bash
-git clone https://github.com/vgcarlol/P1-Redes.git
-cd P1-Redes/MCP_Local
+git clone https://github.com/vgcarlol/MCP_Local_Server.git
+cd MCP_Local_Server
 ```
 
-### 2. Instala las dependencias
+### 2. Install dependencies
 
 ```bash
 pip install flask
 ```
 
-### 3. Inicia el servidor
+### 3. Run the server
 
 ```bash
 python app.py
 ```
 
-El servidor quedará disponible en:
+The server will be available at:
 
 ```
 http://localhost:6000
@@ -54,43 +52,39 @@ http://localhost:6000
 
 ---
 
-## 🔁 Métodos MCP – JSON-RPC
+## 🔁 MCP Methods – JSON-RPC
 
 ### 1. `create_task`
-
-**Descripción:** Crea una nueva tarea con título, fecha y prioridad.  
-**Parámetros:**
+**Description:** Creates a new task with title, due date and priority.  
+**Parameters:**
 ```json
 {
-  "title": "Entregar informe",
+  "title": "Submit report",
   "due": "2025-09-12 10:00",
   "priority": 1
 }
 ```
-
-**Respuesta:**
+**Response:**
 ```json
-"Tarea #1 creada. ⚠️ 1 conflicto(s) de horario detectado(s)."
+"Task #1 created."
 ```
 
 ---
 
 ### 2. `list_tasks`
-
-**Descripción:** Lista tareas, con opción de filtrar por estado o fechas.  
-**Parámetros:**
+**Description:** Lists tasks, with optional filters by status or dates.  
+**Parameters:**
 ```json
 {
   "status": "pending"
 }
 ```
-
-**Respuesta:**
+**Response:**
 ```json
 [
   {
     "id": "1",
-    "title": "Entregar informe",
+    "title": "Submit report",
     "due": "2025-09-12 10:00",
     "priority": "1",
     "status": "pending"
@@ -101,54 +95,50 @@ http://localhost:6000
 ---
 
 ### 3. `complete_task`
-
-**Descripción:** Marca una tarea como completada.  
-**Parámetros:**
+**Description:** Marks a task as completed.  
+**Parameters:**
 ```json
 {
   "id": 1
 }
 ```
-
-**Respuesta:**
+**Response:**
 ```json
-"Tarea #1 completada."
+"Task #1 completed."
 ```
 
 ---
 
 ### 4. `snooze_task`
-
-**Descripción:** Pospone la fecha límite de una tarea.  
-**Parámetros:**
+**Description:** Postpones a task’s due date.  
+**Parameters:**
 ```json
 {
   "id": 1,
   "minutes": 30
 }
 ```
-
-**Respuesta:**
+**Response:**
 ```json
-"Tarea #1 pospuesta 30 min. Nuevo due: 2025-09-12 10:30."
+"Task #1 snoozed for 30 min. New due: 2025-09-12 10:30."
 ```
 
 ---
 
-## 🧪 Ejemplo de archivo `tasks.csv`
+## 🧪 Example `tasks.csv` file
 
-Al iniciar por primera vez, el servidor crea automáticamente el archivo `tasks.csv` con encabezados:
+On first run, the server creates a CSV file with headers:
 
 ```csv
 id,title,due,priority,status
 ```
 
-Cada vez que se agrega o modifica una tarea, el archivo se actualiza.
+Each new or updated task is stored in this file.
 
 ---
 
-## 🧑‍💻 Autor
+## 👤 Author
 
-Carlos Valladares - Carnet 221164  
+Carlos Valladares – Student ID 221164  
 Universidad del Valle de Guatemala  
-Curso: CC3067 Redes – Proyecto 1  
+Course: CC3067 Networks – Project 1  
