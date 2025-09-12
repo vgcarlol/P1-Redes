@@ -5,3 +5,4 @@ id,title,due,priority,status
 4,Inicializar repositorio Git en el directorio actual,2023-09-30 12:00,1,pending
 5,Inicializar repositorio Git en directorio actual,2023-09-25 14:30,2,pending
 6,Entregar el informe,2023-10-25 10:00,1,pending
+7,Tarea 7,2025-09-11 23:59,3,pending

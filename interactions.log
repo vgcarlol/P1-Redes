@@ -22,3 +22,87 @@ Tool usada: git__git_status
 Parámetros: {'repo_path': '.'}
 Respuesta: {'meta': None, 'content': [{'type': 'text', 'text': 'Repository status:\nOn branch main\nYour branch is up to date with \'origin/main\'.\n\nChanges not staged for commit:\n  (use "git add <file>..." to update what will be committed)\n  (use "git restore <file>..." to discard changes in working directory)\n\tmodified:   MCP_Local/tasks.csv\n\tmodified:   chatbot/chatbot_mcp.py\n\nUntracked files:\n  (use "git add <file>..." to include in what will be committed)\n\tMCP_Oficiales/Filesystem/\n\tMCP_Oficiales/git-mcp-server/\n\tinteractions.log\n\trepo_git/\n\ttest_local_mcp.py\n\tworkspace/\n\nno changes added to commit (use "git add" and/or "git commit -a")', 'annotations': None, 'meta': None}], 'structuredContent': None, 'isError': False}
 ----------------------------------------
+[2025-09-11 20:47:53]
+Usuario: ¿Cuánto debe Carlos?
+Tool usada: remoto__get_pending_balance
+Parámetros: {'name': 'Carlos'}
+Respuesta: Saldo pendiente de Carlos: Q67.35
+----------------------------------------
+[2025-09-11 20:48:23]
+Usuario: ¿Puedo dividirlo en pagos?
+Tool usada: LLM
+Parámetros: {}
+Respuesta: ¡Claro! ¿En cuántos pagos te gustaría dividir el saldo pendiente de Carlos?
+----------------------------------------
+[2025-09-11 20:49:51]
+Usuario: A lo que debe Roberto réstale lo que debe José
+Tool usada: remoto__get_pending_balance
+Parámetros: {'name': 'Roberto'}
+Respuesta: Saldo pendiente de Roberto: Q416.93
+----------------------------------------
+[2025-09-11 20:49:51]
+Usuario: A lo que debe Roberto réstale lo que debe José
+Tool usada: remoto__get_pending_balance
+Parámetros: {'name': 'José'}
+Respuesta: Saldo pendiente de José: Q172.57
+----------------------------------------
+[2025-09-11 20:50:56]
+Usuario: Crea una nueva tarea para el 2025-09-11 llamada Tarea 7
+Tool usada: local__create_task
+Parámetros: {'due': '2025-09-11', 'priority': 3, 'title': 'Tarea 7'}
+Respuesta: Invalid 'due' format. Use YYYY-MM-DD HH:MM
+----------------------------------------
+[2025-09-11 20:51:13]
+Usuario: Crea una nueva tarea para el 2025-09-11 23:59 llamada Tarea 7
+Tool usada: local__create_task
+Parámetros: {'due': '2025-09-11 23:59', 'priority': 3, 'title': 'Tarea 7'}
+Respuesta: Tarea #7 creada. 
+----------------------------------------
+[2025-09-11 20:51:27]
+Usuario: Dame el listado de las tareas pendientes
+Tool usada: local__list_tasks
+Parámetros: {'status': 'pending'}
+Respuesta: [{'due': '2025-09-12 10:00', 'id': '2', 'priority': '1', 'status': 'pending', 'title': 'Entregar informe'}, {'due': '2022-12-31 23:59', 'id': '3', 'priority': '3', 'status': 'pending', 'title': 'Inicializar repositorio git en el directorio actual'}, {'due': '2023-09-30 12:00', 'id': '4', 'priority': '1', 'status': 'pending', 'title': 'Inicializar repositorio Git en el directorio actual'}, {'due': '2023-09-25 14:30', 'id': '5', 'priority': '2', 'status': 'pending', 'title': 'Inicializar repositorio Git en directorio actual'}, {'due': '2023-10-25 10:00', 'id': '6', 'priority': '1', 'status': 'pending', 'title': 'Entregar el informe'}, {'due': '2025-09-11 23:59', 'id': '7', 'priority': '3', 'status': 'pending', 'title': 'Tarea 7'}]
+----------------------------------------
+[2025-09-11 20:56:36]
+Usuario: ¿Podrías leerme el README.md del workspace?
+Tool usada: fs__read_text_file
+Parámetros: {'path': 'README.md'}
+Respuesta: {'meta': None, 'content': [{'type': 'text', 'text': 'Error: Access denied - path outside allowed directories: C:\\Users\\user\\Desktop\\Github\\P1-Redes\\README.md not in C:\\Users\\user\\Desktop\\Github\\P1-Redes\\workspace', 'annotations': None, 'meta': None}], 'structuredContent': None, 'isError': True}
+----------------------------------------
+[2025-09-11 20:57:08]
+Usuario: ¿Podrías leerme el README.md del ./workspace?
+Tool usada: fs__read_text_file
+Parámetros: {'path': './workspace/README.md'}
+Respuesta: {'meta': None, 'content': [{'type': 'text', 'text': 'Hola Mundo', 'annotations': None, 'meta': None}], 'structuredContent': None, 'isError': False}
+----------------------------------------
+[2025-09-11 20:57:24]
+Usuario: ¿Podrías leerme el README.md del ./workspace?
+Tool usada: fs__read_text_file
+Parámetros: {'path': './workspace/README.md'}
+Respuesta: {'meta': None, 'content': [{'type': 'text', 'text': 'Hola Mundo', 'annotations': None, 'meta': None}], 'structuredContent': None, 'isError': False}
+----------------------------------------
+[2025-09-11 20:57:35]
+Usuario: cls
+Tool usada: fs__create_directory
+Parámetros: {'path': '../temp'}
+Respuesta: {'meta': None, 'content': [{'type': 'text', 'text': 'Error: Access denied - path outside allowed directories: C:\\Users\\user\\Desktop\\Github\\temp not in C:\\Users\\user\\Desktop\\Github\\P1-Redes\\workspace', 'annotations': None, 'meta': None}], 'structuredContent': None, 'isError': True}
+----------------------------------------
+[2025-09-11 20:58:03]
+Usuario: Lee el archivo README.md dentro de workspace
+Tool usada: fs__read_text_file
+Parámetros: {'path': 'workspace/README.md'}
+Respuesta: {'meta': None, 'content': [{'type': 'text', 'text': 'Buenos días', 'annotations': None, 'meta': None}], 'structuredContent': None, 'isError': False}
+----------------------------------------
+[2025-09-11 20:58:25]
+Usuario: Escribe "Hola Mundo" en el README.md
+Tool usada: fs__write_file
+Parámetros: {'path': 'workspace/README.md', 'content': 'Hola Mundo'}
+Respuesta: {'meta': None, 'content': [{'type': 'text', 'text': 'Successfully wrote to workspace/README.md', 'annotations': None, 'meta': None}], 'structuredContent': None, 'isError': False}
+----------------------------------------
+[2025-09-11 20:58:46]
+Usuario: Muestra el estado del repositorio actual (git status)
+Tool usada: git__git_status
+Parámetros: {'repo_path': './workspace'}
+Respuesta: {'meta': None, 'content': [{'type': 'text', 'text': 'C:\\Users\\user\\Desktop\\Github\\P1-Redes\\workspace', 'annotations': None, 'meta': None}], 'structuredContent': None, 'isError': True}
+----------------------------------------
